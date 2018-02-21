@@ -55,12 +55,12 @@ command_report <- function(params) {
 
 halt <- function() {
   cat(paste0('Execution ended on step ',step,' (HALT) command.\nFinal state: ',tape_str(),'\n\n'))
-  step <<- step + 1
+  step <<- 1
 }
 
 interrupt <- function() {
   cat(paste0('Execution interrupted (reached step limit).\nFinal state: ',tape_str(),'\n\n'))
-  step <<- step + 1
+  step <<- 1
 }
 
 reset <- function() {
