@@ -12,10 +12,10 @@ states <- list('A'=list('0'=c(1,'right','B'),
                'HALT'="None")
 
 extend_tape <- function(direction){
-  if (direction=='left') {
+  if (direction == 'left') {
     tape <<- c(0,tape)
     position <<- position + 1
-  }else if (direction=='right') {
+  } else if (direction == 'right') {
     tape <<- c(tape,0)
   }
 }
@@ -27,7 +27,7 @@ write_pos <- function(position,symbol) {
 move <- function(direction) {
   pos_list <- list('left'=-1,'right'=1)
   new_pos <- position + pos_list[[direction]]
-  if ((new_pos<1) | (new_pos>length(tape))) {
+  if ((new_pos < 1) | (new_pos > length(tape))) {
     extend_tape(direction)
   }
   position <<- position + pos_list[[direction]]
@@ -37,9 +37,9 @@ tape_str <- function() {
   s <- '[--'
   i <- 1
   for (t in tape) {
-    if (i==position) {
+    if (i == position) {
       join_str <- paste0('(',t,')--')
-    }else{
+    } else {
       join_str <- paste0(' ',t,' --')
     }
     s = paste0(s,join_str)
@@ -78,7 +78,7 @@ execute_state <- function(state, max_steps) {
       if (state == 'HALT') {
         halt()
         return(tape_str())
-      }else if (step <= max_steps) {
+      } else if (step <= max_steps) {
         current_state <<- state
         params <- states[[state]][[toString(tape[position])]]
         command_report(params)
@@ -87,11 +87,11 @@ execute_state <- function(state, max_steps) {
         state <- params[3]
         step <<- step + 1
         Sys.sleep(0.5)
-      }else{
+      } else {
         interrupt()
         return(tape_str())
       }
-    }else{
+    } else {
       print(paste0('Error: Unknown state: ',state,'!'))
       return(-1)
     }
