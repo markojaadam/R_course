@@ -49,8 +49,8 @@ tape_str <- function() {
 }
 
 command_report <- function(params) {
-  print(paste0('Step ',step,': Execute ',current_state,' at position',tape_str(),
-               ': write ',params[1],', move ',params[2],', execute ',params[3]))
+  cat(paste0('Step ',step,': Execute ',current_state,' at position',tape_str(),
+               ': write ',params[1],', move ',params[2],', execute ',params[3],'\n'))
 }
 
 halt <- function() {
