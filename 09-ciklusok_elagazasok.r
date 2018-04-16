@@ -1,7 +1,6 @@
 
 # -------- Print, writeLines és cat függvények --------
 
-
 print(1)
 print('Ez egy szöveg')
 print('Ez egy szöveg\nEz egy másik szöveg')
@@ -14,7 +13,6 @@ cat('Ez egy szöveg\nEz egy másik szöveg')
 writeLines(c('Ez egy szöveg','Ez egy másik szöveg'))
 cat(c('Ez egy szöveg','Ez egy másik szöveg'))
 cat(c('Ez egy szöveg','Ez egy másik szöveg'),sep='\n')
-
 
 ## A cat() függvény:
 ?cat
@@ -84,7 +82,7 @@ print("A szam kisebb szaznal")
 
 x <- 99
 if (x > 100) {
-    print('Juhu, a szam nagyobb szaznal.')
+  print('Juhu, a szam nagyobb szaznal.')
 }
 
 
@@ -113,17 +111,17 @@ if (x > 100) {
 
 x <- 101
 if (x > 100) {
-    print('Juhu, a szam nagyobb szaznal.')
+  print('Juhu, a szam nagyobb szaznal.')
 } else {
-    print('Sajnos a szam nem nagyobb 100-nal')
+  print('Sajnos a szam nem nagyobb 100-nal')
 }
 
 
 x <- 100
 if (x > 100) {
-    print('Juhu, a szam nagyobb szaznal.')
+  print('Juhu, a szam nagyobb szaznal.')
 } else {
-    print('Sajnos a szam nem nagyobb 100-nal')
+  print('Sajnos a szam nem nagyobb 100-nal')
 }
 
 # -------- Az else if kapcsoló --------
@@ -143,11 +141,11 @@ if (x > 100) {
 
 x = 100
 if (x > 100) {
-    print("Juhu, a szam nagyobb szaznal.")
+  print("Juhu, a szam nagyobb szaznal.")
 } else if (x == 100) {
-    print("Hoho, a szam pont 100!")
+  print("Hoho, a szam pont 100!")
 } else {
-    print("Sajnos a szam kisebb 100-nal")
+  print("Sajnos a szam kisebb 100-nal")
 }
 
 # Van különbség az alábbi két parancs végrehajtásának eredményében?
@@ -155,18 +153,18 @@ if (x > 100) {
 
 x = 0.5
 if (x < 2) {
-    print("Kisebb, mint ketto")
+  print("Kisebb, mint ketto")
 }
 if (x < 1) {
-    print("Kisebb, mint egy")
+  print("Kisebb, mint egy")
 }
 
 
 x = 0.5
 if (x < 2) {
-    print("Kisebb, mint ketto")
+  print("Kisebb, mint ketto")
 } else if (x < 1) {
-    print("Kisebb, mint egy")
+  print("Kisebb, mint egy")
 }
 
 # Csináljunk egy olyan döntési struktúrát, ami meghatározza, hogy az adott szám osztható-e tízzel, kettővel, vagy öttel.
@@ -198,10 +196,10 @@ print('a')
 
 # Erre jó a ciklus!
 # Az R 2 fajta ciklust ismer:
-#      _while_: (alacsonyabb szintű)
-#      _for_: (magasabb szintű)
+#      while: (alacsonyabb szintű)
+#      for: (magasabb szintű)
 
-# A _while_ ciklus szintaktikája:
+# A while ciklus szintaktikája:
 #     
 #     while(<<állítás>>) {
 #       csináld-ezt-meg-azt-amíg-<<állítás>>-igaz
@@ -214,7 +212,7 @@ print('a')
 # Mit csinálhat ez a parancs?
 
 while(TRUE) {
-    print('Hello world!')
+  print('Hello world!')
 }
 
 # És ez?
@@ -231,20 +229,20 @@ while(FALSE) {
 
 i <- 1 # iterator valtozo
 while(i < 5) { # Csinald, amig i kisebb 5-nel
-    # ird ki i erteket
-    print(i)
-    # noveld meg i-t eggyel,
-    # ezutan visszater a ciklus elejere
-    i = i+1
-    }
+  # ird ki i erteket
+  print(i)
+  # noveld meg i-t eggyel,
+  # ezutan visszater a ciklus elejere
+  i = i+1
+}
 
 # Vagy írjuk ki ötször azt, hogy "a":
 
 
 i = 1
 while (i <= 5) {
-    print('a')
-    i = i + 1 # ezt a sort soha ne felejtsuk el while ciklusnal!!! Ellenkezo esetben vegtelen ciklus...
+  print('a')
+  i = i + 1 # ezt a sort soha ne felejtsuk el while ciklusnal!!! Ellenkezo esetben vegtelen ciklus...
 }
 
 
@@ -252,33 +250,29 @@ while (i <= 5) {
 
 # A break parancs azonnal megszakítja a ciklus futását:
 
-
 while(TRUE) {
-    print('Hello world!')
-    break
+  print('Hello world!')
+  break
 }
 
-
 while(TRUE) {
-    break
-    print('Hello world!')    
+  break
+  print('Hello world!')    
 }
 
 # Így nézne ki az iterátor értékét kiíró függvény hátultesztlő változata:
 
-
 i <- 1
 while (TRUE) {
-    print(i)
-    i = i + 1
-    if (i >= 5) {
-        break
-    }
+  print(i)
+  i = i + 1
+  if (i >= 5) {
+      break
+  }
 }
 
 # Egy kis kitérő:
 # ------------ műveletek vektorokkal ------------
-
 
 v1 <- c('a','b','c','d')
 print(v1)
@@ -287,61 +281,49 @@ print(v1)
 
 # Hozzáad egy elemet a listához:
 
-
 print(v1)
 v1 <- append(v1,'e')
 print(v1)
-
-
 
 # ---------------- Vektor elemeinek száma és indexelés ----------------
 
 # A length visszaadja a lista elemeinek számát:
 
-
 length(v1)
-
-
 
 # Érvényes indexelés:
 
-
 v1[1]
-
-
 
 # Érvénytelen indexelés (az index magasabb, mint a lista elemeinek a száma):
 
-
 v1[10]
-
-
 
 # A negatív index visszaadja az egész listát, a negatívan indexelt elemet kivéve:
 
-
 v1[-3]
-
-
 
 # Vektor segítségével több elemet is lekérhetünk:
 
-
 v1[c(1:3)]
+# Ez egyenértékű a következővel:
+v1[1:3]
 
+# Azonban:
+v1[1,3]
+v1[c(1,3)]
 
 
 # A vektor és a length kombinálásával visszakérhetjük a listánk utolsó x elemét:
 
-
 v1[c(3:length(v1))]
+v1[3:length(v1)]
 
 # ------------ Feladat ------------
 
 # Készítsünk a while ciklus segítségével olyan vektort, ami kettő hatványait tartalmazza
-# Legyen a maximum 2^20
+# Legyen a maximum 2^20!
 # Segítség: A hatványozás operátora a "^", vagy a "**".
-
 
 
 # Ha ez kész, paraméterezzük változó (mondjuk x) segítségével a vektorunk maximális elemszámát!
@@ -356,11 +338,9 @@ v1[c(3:length(v1))]
 
 # Hogyan tudnánk egymás után kiíratni a v1 vektor értékeit?
 
-
 print(v1)
 
-# Favágó megoldás a while ciklussal:
-
+# "Favágó" megoldás a while ciklussal:
 
 i <- 1
 while (i <= length(v1)) {
@@ -385,11 +365,9 @@ for (elem in v1) {
 
 # A for ciklus működik szekvenciákon is:
 
-
 seq(0,10,2)
 
 # Mi fog történni a parancs végrehajtásakor?
-
 
 for (i in seq(0,10,2)) {
     print(i^2)
