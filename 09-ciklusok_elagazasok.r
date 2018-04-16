@@ -92,8 +92,23 @@ if (x > 100) {
 
 x <- 101
 if (x > 100) {
-    print('Juhu, a szam nagyobb szaznal.')
+  print('Juhu, a szam nagyobb szaznal.')
 }
+
+# Prettify: Sok elrendezésben lefut a kódunk, az elsődleges szempont mindig az áttekinthetőség:
+
+if (x > 100) {
+  print('Juhu, a szam nagyobb szaznal.')
+}
+
+if (x > 100) {
+print('Juhu, a szam nagyobb szaznal.')
+}
+
+if (x > 100) {print('Juhu, a szam nagyobb szaznal.')}
+
+if (x > 100)
+  {print('Juhu, a szam nagyobb szaznal.')}
 
 # -------- Az else kapcsoló --------
 
