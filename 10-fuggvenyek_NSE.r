@@ -408,6 +408,24 @@ summarize_mod <- function(data, depvar, ...) {
 pivot_table = summarize_mod(data=mtcars, depvar='mpg', 'cyl', 'gear')
 pivot_table
 
+# De az összesítésnél használ függvényt is kicserélhetjük sajáttal:
+summarize_mod <- function(data, depvar, ..., aggfunc=mean, errfunc=sem) {
+  # a '...' lehetove teszi, hogy a fuggveny meghivasanal
+  # hozzadjunk tovabbi, nem nevesitett argumentumokat.
+  summarize_(group_by_(data, ...),
+             agg = interp(~aggfunc(x), x=as.name(depvar)),
+             error = interp(~errfunc(x), x=as.name(depvar)),
+             n = interp(~length(x), x=as.name(depvar))
+  )
+}
+
+pivot_table_2 = summarize_mod(data=mtcars, 'mpg', 'cyl', 'gear', aggfunc=median)
+pivot_table_2
+
+do_something <- function(data,aggfunc=mean){
+  aggfunc(data)
+}
+
 # -------- A korábbiak kombinálása az ábrázolással --------
 
 # Az elkészült pivot táblát ábrázolhatjuk a ggplot-tal:
