@@ -1,3 +1,5 @@
+# 0.1 Libraryk behívása ----------
+require(stringr)
 
 # -------- Print, writeLines és cat függvények --------
 
@@ -57,10 +59,9 @@ close(fileConn)
 #     }
 
 
-# ---- Feltételhez kötött végrehajtás ----
+# 3 Feltételhez kötött végrehajtás ----------
 # Mi van, ha feltételhez szeretnénk kötni valamely parancs teljesítését?
 # Például.: Írj ki valamit, ha a szám értéke nagyobb 100-nál
-
 
 x <- 101
 print('A szam nagyobb szaznal')
@@ -69,7 +70,7 @@ print('A szam nagyobb szaznal')
 x <- 99
 print("A szam kisebb szaznal")
 
-# -------- Az if parancs --------
+# 3.1 Az if parancs ----------
 # Megvizsgálja, hogy az adott állítás igaz-e és csak akkor hajtja végre a megadott utasítást, ha igaz.
 # Szintaktika:
 
@@ -85,10 +86,7 @@ if (x > 100) {
   print('Juhu, a szam nagyobb szaznal.')
 }
 
-
-
 # És most?
-
 
 x <- 101
 if (x > 100) {
@@ -110,7 +108,7 @@ if (x > 100) {print('Juhu, a szam nagyobb szaznal.')}
 if (x > 100)
   {print('Juhu, a szam nagyobb szaznal.')}
 
-# -------- Az else kapcsoló --------
+# 3.2 Az else kapcsoló ----------
 
 # Mi van, ha akkor is szeretnénk valami mást végrehajtani, ha nem teljesül az állítás, pl. írja ki, hogy sajnos a szám nem nagyobb 100-nál 
 
@@ -123,14 +121,12 @@ if (x > 100)
 #       csinálj-valami-mást
 #     }
 
-
 x <- 101
 if (x > 100) {
   print('Juhu, a szam nagyobb szaznal.')
 } else {
   print('Sajnos a szam nem nagyobb 100-nal')
 }
-
 
 x <- 100
 if (x > 100) {
@@ -152,8 +148,6 @@ if (x > 100) {
 #       csinál-valami-mást-ha-egyik-állítás-sem-igaz
 #     }
 
-
-
 x = 100
 if (x > 100) {
   print("Juhu, a szam nagyobb szaznal.")
@@ -165,7 +159,6 @@ if (x > 100) {
 
 # Van különbség az alábbi két parancs végrehajtásának eredményében?
 
-
 x = 0.5
 if (x < 2) {
   print("Kisebb, mint ketto")
@@ -174,7 +167,6 @@ if (x < 1) {
   print("Kisebb, mint egy")
 }
 
-
 x = 0.5
 if (x < 2) {
   print("Kisebb, mint ketto")
@@ -182,20 +174,18 @@ if (x < 2) {
   print("Kisebb, mint egy")
 }
 
+# 3.4.1 Feladat ----------
 # Csináljunk egy olyan döntési struktúrát, ami meghatározza, hogy az adott szám osztható-e tízzel, kettővel, vagy öttel.
 # Ha tízzel osztható, csak annyit írjon ki, hogy tízzel osztható, ha kettővel, vagy öttel osztható, ha pedig egyikkel sem, akkor írja ki,
 # hogy nem osztható egyikkel sem.
-# Segítség: oszthatóság ellenőrzése:
+# Segítség: oszthatóság ellenőrzése: x%%y = x/y osztás maradéka
 
-#     x%%y = x/y osztás maradéka
+# 4 Ciklusok ----------
 
-# ---- Ciklusok ----
-
-# -------- A while ciklus --------
+# 4.1 A while ciklus ----------
 # Mi van, ha ugyanazt a műveletet többször szeretnénk elvégezni, például írd ki örször azt, hogy "a"?
 
 # Favágó megoldás:
-
 
 print('a')
 print('a')
@@ -261,7 +251,7 @@ while (i <= 5) {
 }
 
 
-# ------------ Előltesztelő és hátultesztelő ciklusok: a break parancs használata ------------
+# 4.1.1 Előltesztelő és hátultesztelő ciklusok: a break parancs használata ------------------
 
 # A break parancs azonnal megszakítja a ciklus futását:
 
@@ -287,12 +277,12 @@ while (TRUE) {
 }
 
 # Egy kis kitérő:
-# ------------ műveletek vektorokkal ------------
+# 4.1.2 műveletek vektorokkal ----------
 
 v1 <- c('a','b','c','d')
 print(v1)
 
-# ---------------- Az append parancs ----------------
+# 4.1.2.1 Az append parancs ----------
 
 # Hozzáad egy elemet a listához:
 
@@ -300,7 +290,7 @@ print(v1)
 v1 <- append(v1,'e')
 print(v1)
 
-# ---------------- Vektor elemeinek száma és indexelés ----------------
+# 4.1.2.2 Vektor elemeinek száma és indexelés ----------
 
 # A length visszaadja a lista elemeinek számát:
 
@@ -334,7 +324,7 @@ v1[c(1,3)]
 v1[c(3:length(v1))]
 v1[3:length(v1)]
 
-# ------------ Feladat ------------
+# 4.1.3 Feladat ----------
 
 # Készítsünk a while ciklus segítségével olyan vektort, ami kettő hatványait tartalmazza
 # Legyen a maximum 2^20!
@@ -349,7 +339,7 @@ v1[3:length(v1)]
 # Olyan sorozat, amely minden n-edik elemének értéke megegyezik az n-1-edik és az n-2-edik elem összegével:
 # 0, 1, 1, 2, 3, 5, 8, 13, 21, stb.
 
-# -------- A for ciklus --------
+# 4.2 A for ciklus ----------
 
 # Hogyan tudnánk egymás után kiíratni a v1 vektor értékeit?
 
@@ -388,7 +378,7 @@ for (i in seq(0,10,2)) {
     print(i^2)
 }
 
-# ------------ Feladatok ------------
+# 4.2.1 Feladat ----------
 # Csináljuk meg a korábbi, hatványos példát a for ciklus és a seq parancs kombinálásával!
 
 v2 <- c(3, 7, 4, 2, 123, 5678, 134, 23, 57, 23324)
