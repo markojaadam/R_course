@@ -1,3 +1,7 @@
+require("dplyr")
+require("lazyeval")
+require("ggplot2")
+
 # ---- Függvények ----
 # Hogyan tudjuk megoldani azt, hogy ugyanazt a parancsot tetszőleges változón, vagy bemeneti értéken hajtsuk végre?
 
@@ -41,12 +45,9 @@ check_100 <- function(szam) {
     return(szoveg)
 }
 
-
 check_100(77)
 
-
 check_100(100)
-
 
 check_100(1000)
 
@@ -90,7 +91,6 @@ print(szoveg)
 
 # A <<- hozzárendelés globális változót csinál a változóból, amihez az értéket rendeljük, így azt a függvényen kívülről is elérjük:
 
-
 szoveg <- 'semmi'
 
 check_100 <- function(szam) {
@@ -107,11 +107,7 @@ check_100 <- function(szam) {
 check_100(77)
 print(szoveg)
 
-
-
 # Működőképes lehet a következő függvény?
-
-
 x <- c(1,2)
 
 append_x <- function(number) {
@@ -134,8 +130,6 @@ print(x)
 #     Output: [1] 0,1,1,2,3,5,8,13
 
 # ---- A tanultak alkalmazása elemzésnél ----
-
-require("dplyr")
 
 # -------- Statisztikai függvények --------
 # Készíthetünk függvényeket különböző statisztikai problémákra
@@ -333,9 +327,6 @@ summarize_(mtcars, ~mean(depvar))
 # A megoldás az interp függvény a lazyeval csomagból!
 
 
-require("lazyeval")
-
-
 ?interp
 
 # Mit csinálhatott a függvény?
@@ -430,7 +421,6 @@ do_something <- function(data,aggfunc=mean){
 
 # Az elkészült pivot táblát ábrázolhatjuk a ggplot-tal:
 
-require("ggplot2")
 options(repr.plot.width=8, repr.plot.height=3)
 #Ez a sor hatarozza meg, mekkoraban jelenitse meg a notebook a plot-okat.
 
@@ -568,3 +558,5 @@ depvars = c('mpg','disp','wt')
 for (var in depvars) {
     mean_bar_plot(data=mtcars, depvar=var, gvar1='cyl', gvar2='gear')
 }
+
+# TODO map, reduce, purr, névtelen függvények

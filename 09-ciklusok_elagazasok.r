@@ -373,7 +373,7 @@ tail(stroop_files)
 grepl('.csv','az_en_kis_mappam/proba_log.csv')
 grepl('.csv','az_en_kis_mappam/osszes_log.zip')
 
-df_list = c()
+df_list <- c()
 for (fname in stroop_files){
   if (grepl('.csv',fname)){
     fullpath <- paste0(stroop_dir,fname)
