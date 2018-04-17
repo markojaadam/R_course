@@ -135,7 +135,15 @@ if (x > 100) {
   print('Sajnos a szam nem nagyobb 100-nal')
 }
 
-# -------- Az else if kapcsoló --------
+# 3.2.1 Feladat ----------
+
+# Emlékeztek erre a feladatra?
+# Nyerd ki egy string középső karakterért az str_length és azt str_sub használatával!
+# Csináljuk meg elágazással: Ha a szöveg páros számú betűből áll, a középső két betűt,
+# ha páratlanból, akkor csak a középső betűt adja vissza!
+# Emlékeztetőül: str_length(string) + str_sub(string, start=, end=)
+
+# 3.4 Az else if kapcsoló ----------
 # Mi van, ha arra is szeretnenk egy kiirast, ha a szam pont 100?
 # Az else if közbeiktatása: ha nem igaz az if mögötti állítás, de az else if mögötti igen, akkor végrehajtja.
 # Szintaktika:
@@ -385,3 +393,41 @@ v2 <- c(3, 7, 4, 2, 123, 5678, 134, 23, 57, 23324)
 # Készítsünk v3 néven olyan vektort, aminek az első eleme a v2 vektor első elemének az egyszerese, a második a v2 második elemének a kétszerese, a harmadik a v2 harmadik elemének háromszorosa, stb, az n-edik elem a v2 n-edik elemének n-szerese.
 
 # Íjrunk egy olyan parancsot, ami megkeresi az x-nél kisebb összes prímszámot!
+
+# Gyakorlati alkalamzás
+
+# 5 Gyakorlati alkalmazás: Ciklus és elágazás adatbeolvasáshoz ----------
+
+# Könyvtár tartalmának listázása: dir() függvény
+# Ha sokat dolgozunk ugyanabban a könyvtárban, érdemes a nevét változóba tenni!
+stroop_dir <- 'stroop_rawdata/'
+stroop_files <- dir(stroop_dir)
+# itt is alkalamzhatjuk a head() és tail() parancsokat:
+head(stroop_files)
+tail(stroop_files)
+# Szerertnénk minden fájlt beolvasni, ami tartalmazza a ".csv" kiterjesztést,
+# ám van egy zip fájlunk is!
+# Segítség: szöveg keresése szövegben a grepl() függvénnyel
+# TODO Ezt majd kiszedni!
+grepl('.csv','az_en_kis_mappam/proba_log.csv')
+grepl('.csv','az_en_kis_mappam/osszes_log.zip')
+
+df_list = c()
+for (fname in stroop_files){
+  if (grepl('.csv',fname)){
+    fullpath <- paste0(stroop_dir,fname)
+    df_list <- append(df_list, read.csv(fullpath, header=T))
+  }
+}
+
+i <- 1
+for (df in df_list){
+  if (i == 1){
+    stroop_df <- df
+  }else{
+    stroop_df <- rbind(stroop_df,df)
+  }
+  i = i + 1
+}
+
+df_list
