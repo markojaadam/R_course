@@ -1,5 +1,9 @@
 # 0.1 Libraryk behívása ----------
 require(stringr)
+require(dplyr)
+require(ggplot2)
+require(gridExtra)
+require(nycflights13)
 
 # 1 Print, writeLines és cat függvények ----------
 
@@ -96,13 +100,25 @@ if (x > 100) {
   print('Sajnos a szam nem nagyobb 100-nal')
 }
 
-# 3.2.1 Feladat ----------
+# 3.2.1 Feladatok ----------
 
 # Emlékeztek erre a feladatra?
 # Nyerd ki egy string középső karakterért az str_length és azt str_sub használatával!
 # Csináljuk meg elágazással: Ha a szöveg páros számú betűből áll, a középső két betűt,
 # ha páratlanból, akkor csak a középső betűt adja vissza!
 # Emlékeztetőül: str_length(string) + str_sub(string, start=, end=)
+
+str_1 <- 'kozep_*_kozep'
+str_1 <- 'kozep_**_kozep'
+
+# Mi van, ha csak bizonyos típusú változókon szeretnénk parancsot végrehajtani?
+x <- 'szoveg'
+print(x+1)
+# Szeretnénk ezt a hibaüzenetet elkerülni:
+# Írjuk olyan elágazást, ami megszorozza kettővel a változó értékét, ha az szám, 
+# Egyéb esetben kiírja a változó tartalmát.
+# Segítség: típus ellenőrzése: pl. is.numeric() függvény
+
 
 # 3.4 Az else if kapcsoló ----------
 # Mi van, ha arra is szeretnenk egy kiirast, ha a szam pont 100?
@@ -143,11 +159,33 @@ if (x < 2) {
   print("Kisebb, mint egy")
 }
 
-# 3.4.1 Feladat ----------
-# Csináljunk egy olyan döntési struktúrát, ami meghatározza, hogy az adott szám osztható-e tízzel, kettővel, vagy öttel.
-# Ha tízzel osztható, csak annyit írjon ki, hogy tízzel osztható, ha kettővel, vagy öttel osztható, ha pedig egyikkel sem, akkor írja ki,
-# hogy nem osztható egyikkel sem.
+# 3.4.1 Feladatok ----------
+# a)
+# Csináljunk egy olyan döntési struktúrát, ami meghatározza,
+# hogy az adott szám osztható-e tízzel, kettővel, vagy öttel.
+# Ha tízzel osztható, csak annyit írjon ki, hogy tízzel osztható,
+# ha kettővel, vagy öttel osztható, azt írja ki,
+# ha pedig egyikkel sem, akkor írja ki,
+# hogy "nem osztható egyikkel sem".
 # Segítség: oszthatóság ellenőrzése: x%%y = x/y osztás maradéka
+
+a <- 120
+a <- 35
+a <- 12
+a <- 17
+
+# b)
+# Csináljunk olyan elágazásláncot, ami megvizsgálja, milyen típusú a változónk
+# és kiírja nekünk. Pl ha a változónk data.frame kiírja, hogy "Ez data.frame"
+# A következő adattípusokkal működjön: vektor, szám, karakter, lista, data.frame
+# Tipp: Figyelni kell a típusok sorrendjére, mert némelyik nagyobb halmaz, mint a másik!
+# Próbáljuk ki különböző típusú változókkal!
+
+b <- c(1,2,3)
+b <- 1.124
+b <- 'ez egy szoveg'
+b <- mtcars
+b <- list(a=1, b=2, c=3)
 
 # 4 Ciklusok ----------
 
@@ -285,6 +323,7 @@ v1[1:3]
 
 # Azonban:
 v1[1,3]
+# Ez az indexelés többcimenziós mátrixot vár!
 v1[c(1,3)]
 
 
@@ -293,7 +332,7 @@ v1[c(1,3)]
 v1[c(3:length(v1))]
 v1[3:length(v1)]
 
-# 4.1.3 Feladat ----------
+# 4.1.3 Feladatok ----------
 
 # Készítsünk a while ciklus segítségével olyan vektort, ami kettő hatványait tartalmazza
 # Legyen a maximum 2^20!
@@ -303,7 +342,7 @@ v1[3:length(v1)]
 # Ha ez kész, paraméterezzük változó (mondjuk x) segítségével a vektorunk maximális elemszámát!
 
 
-# Írjatok olyan parancsot, ami tetszőleges hosszúságú Fibonacci számsort állít elő!
+# Írjunk olyan parancsot, ami tetszőleges hosszúságú Fibonacci számsort állít elő!
 # Fibonacci-sor:
 # Olyan sorozat, amely minden n-edik elemének értéke megegyezik az n-1-edik és az n-2-edik elem összegével:
 # 0, 1, 1, 2, 3, 5, 8, 13, 21, stb.
@@ -327,9 +366,9 @@ while (i <= length(v1)) {
 # A ciklusban létrehozunk egy iterátor változót, ami minden körben a vektor soron következő elemének értékét veszi fel.
 # Szintaktika:
 
-#     for (<<iterátor>> in <<vektor>>): {
+#     for (<<elem>> in <<vektor>>): {
 #       csinald-ezt-meg-azt, pl.
-#       print(<<iterátor>>) --> kiírja a vektor soron következő elemét.
+#       print(<<elem>>) --> kiírja a vektor soron következő elemét.
 #     }
 
 
@@ -347,7 +386,7 @@ for (i in seq(0,10,2)) {
     print(i^2)
 }
 
-# 4.2.1 Feladat ----------
+# 4.2.1 Feladatok ----------
 # Csináljuk meg a korábbi, hatványos példát a for ciklus és a seq parancs kombinálásával!
 
 v2 <- c(3, 7, 4, 2, 123, 5678, 134, 23, 57, 23324)
@@ -357,19 +396,144 @@ v2 <- c(3, 7, 4, 2, 123, 5678, 134, 23, 57, 23324)
 
 # Gyakorlati alkalamzás
 
-# 5 Gyakorlati alkalmazás: Ciklus és elágazás adatbeolvasáshoz ----------
+# 5 Gyakorlati alkalmazás ----------
 
+# 5.1 Ciklus használata data.frame-eken ábrázoláshoz ----------
+
+# Cél: Ábrázoljuk az iris adattábla összes numerikus változójának eloszlását hisztogram segítségével!
+head(iris,5)
+str(iris)
+
+# 1. tároljuk egy vektorban a folytonos változókat, egy vektorban pedig a faktorokat
+
+# Alap  syntax:
+ggplot(data=iris, aes(Sepal.Length)) + 
+  geom_histogram()
+
+# Ez sajnos nem lesz jó nekünk, mert az NSE változókat nem tudjuk listába rakni
+# Ebben segít az aes_string(): Hasonló, mint az aes(), de stringként kéri a változónevet
+# Megj.: az NSE-ről bővebben a következő órán beszélünk
+ggplot(data=iris, aes_string('Sepal.Length')) + 
+  geom_histogram()
+
+colname = 'Sepal.Length'
+ggplot(data=iris, aes_string(colname)) + 
+  geom_histogram()
+
+# Indexelés változóval:
+# Így miért nem működik?
+iris$colname
+
+# Miben különbözik a fentitől?
+iris[[colname]]
+
+# Ellenőrizzük, hogy az oszlop számokat tartalmaz:
+is.numeric(iris[[colname]])
+
+for (colname in colnames(iris)) { # Menjünk végig az összes oszlopon
+  if(is.numeric(iris[[colname]])){ # Ellenőrizzük, hogy a változó számadatot tartalmaz
+    print( # A ggplot-nak szüksége van a print függvényre a cikluson belül, hogy outputot kapjunk
+      ggplot(data=iris, aes_string(colname)) +
+        geom_histogram()
+    )
+    cat(c('Ábrázolva: ',colname,'\n')) # Visszajelzés nekünk
+  }else{
+    cat(c('Nem tudom ábrázolni: ',colname,'\n')) # Visszajelzés nekünk
+  }
+}
+
+
+# A kész plotokat tárolhatjuk strukturált változókban, pl. listába
+
+# Nézzük meg, hogy a diamonds adattáblában a különböző minőségű (cut) gyémántoknál
+# hogyan jár együtt az ár a mélységgel (depth) és a relatív magassággal (table)
+# A plotokat tároljuk úgy egyetlen változóban, hogy utána könnyen azonosíthassuk őket
+str(diamonds)
+
+# Először tervezzük meg a változónk strukturáját!
+# cut_plots
+# |
+# |----cut1 (Ideal)
+# |      |---- price×depth
+# |      |---- price×table
+# |----cut2 (Premium)
+# |      |---- price×depth
+# |      |---- price×table
+# |----cut3 (Good)
+# |      |---- price×depth
+# |      |---- price×table
+# stb.
+
+cut_plots <- list()
+cuts <- unique(diamonds$cut)
+for(c in cuts){
+  dat <- subset(diamonds, cut==c)
+  plot_pair <- list()
+  plot_pair[['table']] <- ggplot(dat, aes(price,table)) + geom_point() + 
+    ggtitle(c)
+  plot_pair[['depth']] <- ggplot(dat, aes(price,depth)) + geom_point() + 
+    ggtitle(c)
+  cut_plots[[c]] <- plot_pair
+}
+
+# Végigiterálhatjuk az összes plotot:
+for (pp in cut_plots){
+  print(pp)
+}
+
+# Vagy kiválaszthatunk egy-egy adott plotot is:
+print(cut_plots$Ideal$table)
+print(cut_plots$Premium$depth)
+
+# Lassan kezelhetetlen mennyiségű plotunk lesz... mit tehetünk velük?
+
+# A grid.arrange rácsos szerkezetben egyszerre több plotot is képes megjeleníteni.
+grid.arrange(cut_plots$Premium$table,cut_plots$Premium$depth)
+
+# Igen ám, de hogy tudunk plotot kérni egy változópárra?
+grid.arrange(cut_plots$Premium)
+
+# Ez nem működik, mert a grid.arrange külön-külön várja az argumentumokat, nem egyetlen változóban tárolva
+# Itt segít a do.call függvény! Kibontja a listában található argumentumokat
+# és egyesével adja be a füvvgénynek:
+# pl. do.call(grid.arrange,list(plot1,plot2)) = grid.arrange(plot1,plot2)
+?do.call
+do.call(grid.arrange,cut_plots$Premium)
+
+# Ezután már csak végig kell iterálni a párosokat:
+for (plot_pair in cut_plots) {
+  # a do.call függvény összefűzi az argumentumokat
+  # pl. do.call(grid.arrange,list(plot1,plot2)) = grid.arrange(plot1,plot2)
+  do.call(grid.arrange,plot_pair)
+}
+
+# Most már nincs más dolgunk, mint nyitni egy pdf-et és abba küldeni a plot párosainkat!
+pdf("diamond_plots.pdf", onefile = TRUE)
+for (plot_pair in cut_plots) {
+  do.call(grid.arrange, plot_pair)
+}
+dev.off()
+
+# 5.1.1 Feladatok ----------
+
+# Ábrázoljuk a flights tábla összes numerikus változóját hisztogramon!
+
+# Nézzük meg az mtcars táblán, hogyan alakul a kocsik fogyasztása (mpg), illetve gyorsulása (qsec)
+# a teljesítmény (hp) függvényében, lebontva a 4, 6, vagy 8 hengeres (cyl) kocsikra!
+
+# 5.2 Ciklus és elágazás adatbeolvasáshoz ----------
 # Könyvtár tartalmának listázása: dir() függvény
 # Ha sokat dolgozunk ugyanabban a könyvtárban, érdemes a nevét változóba tenni!
 stroop_dir <- 'stroop_rawdata/'
 stroop_files <- dir(stroop_dir)
+
 # itt is alkalamzhatjuk a head() és tail() parancsokat:
 head(stroop_files)
 tail(stroop_files)
+
 # Szerertnénk minden fájlt beolvasni, ami tartalmazza a ".csv" kiterjesztést,
 # ám van egy zip fájlunk is!
 # Segítség: szöveg keresése szövegben a grepl() függvénnyel
-# TODO Ezt majd kiszedni!
 grepl('.csv','az_en_kis_mappam/proba_log.csv')
 grepl('.csv','az_en_kis_mappam/osszes_log.zip')
 
