@@ -185,15 +185,15 @@ print('a')
 
 # Mit csinálhat ez a parancs?
 
-while(TRUE) {
-  print('Hello world!')
-}
+# while(TRUE) {
+#  print('Hello world!')
+# }
 
 # És ez?
 
-while(FALSE) {
-  print('Hello world!')
-}
+# while(FALSE) {
+#   print('Hello world!')
+# }
 
 # Látszólag egyiknek sem volt értelme. Az első végtelen végrehajtáshoz vezetett, a második pedig nem csinált semmit.
 # Akkor mégis hogyan működhet a while parancs, hogyan válhatna hasznunkra?
