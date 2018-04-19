@@ -75,7 +75,8 @@ if (x > 100)
 
 # 3.2 Az else kapcsoló ----------
 
-# Mi van, ha akkor is szeretnénk valami mást végrehajtani, ha nem teljesül az állítás, pl. írja ki, hogy sajnos a szám nem nagyobb 100-nál 
+# Mi van, ha akkor is szeretnénk valami mást végrehajtani, ha nem teljesül az állítás, pl. írja ki,
+# hogy sajnos a szám nem nagyobb 100-nál 
 
 # else parancs: akkor hejtódik végre, ha az if mögött állítás nem teljesül.
 # Szintaktika:
@@ -238,7 +239,6 @@ print('a')
 
 # A megoldás: iterátor változó:
 
-
 i <- 1 # iterator valtozo
 while(i < 5) { # Csinald, amig i kisebb 5-nel
   # ird ki i erteket
@@ -249,7 +249,6 @@ while(i < 5) { # Csinald, amig i kisebb 5-nel
 }
 
 # Vagy írjuk ki ötször azt, hogy "a":
-
 
 i = 1
 while (i <= 5) {
@@ -323,7 +322,7 @@ v1[1:3]
 
 # Azonban:
 v1[1,3]
-# Ez az indexelés többcimenziós mátrixot vár!
+# Ez az indexelés többdimenziós mátrixot vár!
 v1[c(1,3)]
 
 
@@ -376,18 +375,23 @@ for (elem in v1) {
     print(elem)
 }
 
-# A for ciklus működik szekvenciákon is:
+# A for ciklus működik tartományokon, szekvenciákon is:
 
+0:10
 seq(0,10,2)
 
-# Mi fog történni a parancs végrehajtásakor?
+# Mi fog történni a parancsok végrehajtásakor?
+
+for (i in 0:10) {
+    print(i^2)
+}
 
 for (i in seq(0,10,2)) {
     print(i^2)
 }
 
 # 4.2.1 Feladatok ----------
-# Csináljuk meg a korábbi, hatványos példát a for ciklus és a seq parancs kombinálásával!
+# Csináljuk meg a korábbi, hatványos példát a for ciklus és a tartományok/seq parancs kombinálásával!
 
 v2 <- c(3, 7, 4, 2, 123, 5678, 134, 23, 57, 23324)
 # Készítsünk v3 néven olyan vektort, aminek az első eleme a v2 vektor első elemének az egyszerese, a második a v2 második elemének a kétszerese, a harmadik a v2 harmadik elemének háromszorosa, stb, az n-edik elem a v2 n-edik elemének n-szerese.
@@ -425,7 +429,10 @@ ggplot(data=iris, aes_string(colname)) +
 iris$colname
 
 # Miben különbözik a fentitől?
+iris[colname]
 iris[[colname]]
+typeof(iris[colname])
+typeof(iris[[colname]])
 
 # Ellenőrizzük, hogy az oszlop számokat tartalmaz:
 is.numeric(iris[[colname]])
@@ -508,11 +515,11 @@ for (plot_pair in cut_plots) {
 }
 
 # Most már nincs más dolgunk, mint nyitni egy pdf-et és abba küldeni a plot párosainkat!
-pdf("diamond_plots.pdf", onefile = TRUE)
+pdf("diamond_plots.pdf", onefile = TRUE) # Itt tudatjuk a géppel, hogy innentől nem a saját ablakunkba, hanem egy podf fájlba kérjük a plotokat.
 for (plot_pair in cut_plots) {
   do.call(grid.arrange, plot_pair)
 }
-dev.off()
+dev.off() # Bezárjuk a fájlt és visszatérünk az IDE-ben történő plotoláshoz
 
 # 5.1.1 Feladatok ----------
 
