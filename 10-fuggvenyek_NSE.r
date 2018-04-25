@@ -533,14 +533,18 @@ relu(-10:10)
 
 # 1. megoldás: Map() függvény: alkalmaz egy adott függvényt egy vektor összes elemén
 ?Map
-Map(relu,-10:10)
+Map(relu, -10:10)
 
 # Ez nem a legelegánsabb... Szerencsére a purrr csomagban rendelekzésre állnak
 # Olyan map függvények, amelyek megadott adattípusokat adnak vissza
 # VIGYÁZAT: az argumentumok sorrendje pont fordított a Map()-hez képest!
 ?map
-map(-10:10,relu)
-map_dbl(-10:10,relu)
+map(-10:10, relu)
+map_dbl(-10:10, relu)
+
+# Megjegyzés: a map...() függvénycsalád és a Map() működik névtelen függvényekkel:
+# elég, ha az argumentumon belül definiáljuk a függvényt
+map_dbl(-10:10, function(x) if (x>0) {x} else {0})
 
 # 2. megoldás: a függvénydefiníción változtatunk: a for-if párosítás helyett az ifelse függvényt
 # használjuk, ami egy if-else elágazást képes egyetlen paranccsal végrehajtani egy elágazást
@@ -552,5 +556,9 @@ relu <- function(x) {
 
 x <- seq(-100,100,0.01)
 plot(x,relu(x),type='l')
+
+# Ennek nagy előnye, hogy annyira egyszerűen használható,
+# hogy még külön definiálnunk sem kell a függvényt, mégis átlátható lesz:
+plot(x, ifelse(x > 0, x, 0), type="l")
 
 # TODO map, reduce, purr, névtelen függvények
