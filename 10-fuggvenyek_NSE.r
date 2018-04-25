@@ -516,4 +516,39 @@ for (var in depvars) {
     mean_bar_plot(data=mtcars, depvar=var, gvar1='cyl', gvar2='gear')
 }
 
+# 3. Parancsok ciklikus végrehajtása ----------
+# Mi van, ha szeretnénk egy olyan függvényt, ami negatív számokra 0-t ad, pozitív számokra önmagukat
+# Megj.: Ez egy gyakran használt, ún. relu, vagy rectifier aktivációs fv. neurális hálókban
+
+
+relu(1)
+#     output: [1] 1
+relu(-1)
+#     output: [1] 0
+
+# Mi a helyzet, ha ezt a függvényt vektoron szeretnénk alkalmazni?
+relu(-10:10)
+
+# 1. megoldás: Map() függvény: alkalmaz egy adott függvényt egy vektor összes elemén
+?Map
+Map(relu,-10:10)
+
+# Ez nem a legelegánsabb... Szerencsére a purrr csomagban rendelekzésre állnak
+# Olyan map függvények, amelyek megadott adattípusokat adnak vissza
+# VIGYÁZAT: az argumentumok sorrendje pont fordított a Map()-hez képest!
+?map
+map(-10:10,relu)
+map_dbl(-10:10,relu)
+
+# 2. megoldás: a függvénydefiníción változtatunk: a for-if párosítás helyett az ifelse függvényt
+# használjuk, ami egy if-else elágazást képes egyetlen paranccsal végrehajtani egy elágazást
+# egy vektor minden elemén
+?ifelse
+relu <- function(x) {
+  ifelse(x > 0, x, 0)
+}
+
+x <- seq(-100,100,0.01)
+plot(x,relu(x),type='l')
+
 # TODO map, reduce, purr, névtelen függvények
