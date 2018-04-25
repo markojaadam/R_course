@@ -59,7 +59,6 @@ if (x > 100) {
 }
 
 # Prettify: Sok elrendezésben lefut a kódunk, az elsődleges szempont mindig az áttekinthetőség:
-
 if (x > 100) {
   print('Juhu, a szam nagyobb szaznal.')
 }
@@ -69,6 +68,7 @@ print('Juhu, a szam nagyobb szaznal.')
 }
 
 if (x > 100) {print('Juhu, a szam nagyobb szaznal.')}
+if (x > 100)print('Juhu, a szam nagyobb szaznal.')
 
 if (x > 100)
   {print('Juhu, a szam nagyobb szaznal.')}
@@ -110,7 +110,15 @@ if (x > 100) {
 # Emlékeztetőül: str_length(string) + str_sub(string, start=, end=)
 
 str_1 <- 'kozep_*_kozep'
+str_length(str_1)/2
 str_1 <- 'kozep_**_kozep'
+str_length(str_1)/2
+
+if (str_length(str_1)%%2==0) {
+  str_sub(str_1,start=str_length(str_1)/2,end=str_length(str_1)/2+1)
+}else{
+  str_sub(str_1,start=str_length(str_1)/2+1,end=str_length(str_1)/2+1)
+}
 
 # Mi van, ha csak bizonyos típusú változókon szeretnénk parancsot végrehajtani?
 x <- 'szoveg'
@@ -119,7 +127,16 @@ print(x+1)
 # Írjuk olyan elágazást, ami megszorozza kettővel a változó értékét, ha az szám, 
 # Egyéb esetben kiírja a változó tartalmát.
 # Segítség: típus ellenőrzése: pl. is.numeric() függvény
+is.numeric(2)
+is.numeric('blabla')
+is.numeric('2')
 
+x <- 1
+if (is.numeric(x)) {
+  print(x+1)
+}else{
+  print(x)
+}
 
 # 3.4 Az else if kapcsoló ----------
 # Mi van, ha arra is szeretnenk egy kiirast, ha a szam pont 100?
@@ -174,6 +191,16 @@ a <- 120
 a <- 35
 a <- 12
 a <- 17
+
+if(a %% 10 == 0){
+  print('10-zel oszthato')
+}else if(a %% 5 == 0){
+  print('5-tel oszthato')
+}else if (a %% 2 == 0){
+  print('2-vel oszthato')
+}else{
+  print("Egyikkel sem oszthato")
+}
 
 # b)
 # Csináljunk olyan elágazásláncot, ami megvizsgálja, milyen típusú a változónk
@@ -336,6 +363,16 @@ v1[3:length(v1)]
 # Készítsünk a while ciklus segítségével olyan vektort, ami kettő hatványait tartalmazza
 # Legyen a maximum 2^20!
 # Segítség: A hatványozás operátora a "^", vagy a "**".
+2**20
+2^20
+
+i <- 0
+hatvanyok <- c()
+while(i <= 20){
+  hatvanyok <- append(hatvanyok, 2^i)
+  i = i + 1
+}
+hatvanyok
 
 
 # Ha ez kész, paraméterezzük változó (mondjuk x) segítségével a vektorunk maximális elemszámát!
@@ -392,6 +429,11 @@ for (i in seq(0,10,2)) {
 
 # 4.2.1 Feladatok ----------
 # Csináljuk meg a korábbi, hatványos példát a for ciklus és a tartományok/seq parancs kombinálásával!
+hatvanyok <- c()
+for (i in 1:20) {
+  hatvanyok <- c(hatvanyok,2^i)
+}
+hatvanyok
 
 v2 <- c(3, 7, 4, 2, 123, 5678, 134, 23, 57, 23324)
 # Készítsünk v3 néven olyan vektort, aminek az első eleme a v2 vektor első elemének az egyszerese, a második a v2 második elemének a kétszerese, a harmadik a v2 harmadik elemének háromszorosa, stb, az n-edik elem a v2 n-edik elemének n-szerese.
