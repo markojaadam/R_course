@@ -546,8 +546,14 @@ map_dbl(-10:10, relu)
 # elég, ha az argumentumon belül definiáljuk a függvényt
 map_dbl(-10:10, function(x) if (x>0) {x} else {0})
 
-# 2. megoldás: a függvénydefiníción változtatunk: a for-if párosítás helyett az ifelse függvényt
-# használjuk, ami egy if-else elágazást képes egyetlen paranccsal végrehajtani egy elágazást
+# 2. megoldás: a függvény újradefiniálása for ciklussal
+
+
+
+relu(-10:10)
+
+# 3. megoldás: a for-if párosítás helyett az ifelse függvényt használjuk,
+# ami egy if-else elágazást képes egyetlen paranccsal végrehajtani egy elágazást
 # egy vektor minden elemén
 ?ifelse
 relu <- function(x) {
