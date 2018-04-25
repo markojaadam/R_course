@@ -4,6 +4,7 @@ require("dplyr")
 require("lazyeval")
 require("ggplot2")
 require("purrr")
+require("gridExtra")
 
 # 0.2 Ismétlés ----------
 # Írjunk olyan parancsot, ami tetszőleges hosszúságú Fibonacci számsort állít elő!
@@ -489,8 +490,7 @@ mean_bar_plot <- function(data, depvar, gvar1, gvar2) {
     pivot_table = summarize_mod(data=data, depvar=depvar, gvar1, gvar2)
     dodge <- position_dodge(width = 0.9)
     print(pivot_table)
-    print(
-    ggplot(pivot_table, aes(x=as.factor(pivot_table[[gvar1]]),
+    return(ggplot(pivot_table, aes(x=as.factor(pivot_table[[gvar1]]),
                             y=agg, # Vigyazat: itt kombinaljuk az NSE-t es az SE-t!
                             fill=as.factor(pivot_table[[gvar2]]))) +
             geom_bar(stat="identity", position=dodge) +
@@ -512,9 +512,11 @@ depvars = c('mpg','disp','wt')
 
 # És egyszerűen csinálhatunk plotot minden minden függő változóra:
 
+plots <- list()
 for (var in depvars) {
-    mean_bar_plot(data=mtcars, depvar=var, gvar1='cyl', gvar2='gear')
+    plots[[var]] <- mean_bar_plot(data=mtcars, depvar=var, gvar1='cyl', gvar2='gear')
 }
+do.call(grid.arrange,plots)
 
 # 3. Parancsok ciklikus végrehajtása ----------
 # Mi van, ha szeretnénk egy olyan függvényt, ami negatív számokra 0-t ad, pozitív számokra önmagukat
