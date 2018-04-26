@@ -421,9 +421,6 @@ pivot_table_2
 
 # Az elkészült pivot táblát ábrázolhatjuk a ggplot-tal:
 
-options(repr.plot.width=8, repr.plot.height=3)
-#Ez a sor hatarozza meg, mekkoraban jelenitse meg a notebook a plot-okat.
-
 # készítünk egy változót arra, amiben az oszlopok távolságát tároljuk:
 
 dodge <- position_dodge(width = 0.9)
