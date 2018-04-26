@@ -9,12 +9,14 @@ require("gridExtra")
 # 0.2 Ismétlés ----------
 # Írjunk olyan parancsot, ami tetszőleges hosszúságú Fibonacci számsort állít elő!
 # Fibonacci-sor:
-# Olyan sorozat, amely minden n-edik elemének értéke megegyezik az n-1-edik és az n-2-edik elem összegével:
+# Olyan sorozat, amely minden n-edik elemének értéke megegyezik az n-1-edik
+# és az n-2-edik elem összegével:
 # 0, 1, 1, 2, 3, 5, 8, 13, 21, stb.
 # Íjrunk egy olyan parancsot, ami megkeresi az x-nél kisebb összes prímszámot!
 
 # 1. Függvények ----
-# Hogyan tudjuk megoldani azt, hogy ugyanazt a parancsot tetszőleges változón, vagy bemeneti értéken hajtsuk végre?
+# Hogyan tudjuk megoldani azt, hogy ugyanazt a parancsot tetszőleges változón,
+# vagy bemeneti értéken hajtsuk végre?
 
 x = 99
 if (x > 100) {
@@ -25,7 +27,8 @@ if (x > 100) {
     print("Sajnos a szam kisebb 100-nal")
 }
 
-# Jó lenne egy olyan parancs, pléldáulaminek a neve például check100, ahova csak beírom a számot és megmondja a választ a kérdésre így:
+# Jó lenne egy olyan parancs, pléldáulaminek a neve például check100,
+# ahova csak beírom a számot és megmondja a választ a kérdésre így:
 
 #     x=99
 #     check100(x)
@@ -63,7 +66,7 @@ check_100(100)
 check_100(1000)
 
 # 1.1 Lokális és globális változók --------
-# Ha a függvényen belül létrehozunk egy változót, azt nem tudjuk s függvényen kívül elérni!!!
+# Ha a függvényen belül létrehozunk egy változót, azt nem tudjuk a függvényen kívül elérni!!!
 
 # Miért más az eredménye az alábbi két parancs végrehajtásának?
 
@@ -98,7 +101,8 @@ check_100 <- function(szam) {
 check_100(77)
 print(szoveg)
 
-# A <<- hozzárendelés globális változót csinál a változóból, amihez az értéket rendeljük, így azt a függvényen kívülről is elérjük:
+# A <<- hozzárendelés globális változót csinál a változóból,
+# amihez az értéket rendeljük, így azt a függvényen kívülről is elérjük:
 
 szoveg <- 'semmi'
 
@@ -132,7 +136,8 @@ print(x)
 
 # Írjunk olyan függvényt, ami az adott számra megmondja nekünk, hpgy az pozitív, negatív, vagy 0!
 
-# Írjunk a Fibonacci sorozatra függvényt, ami tetszőleges szám beadására kiadja az annak megfelelő hosszúságú Fibonacci-sort, pl.:
+# Írjunk a Fibonacci sorozatra függvényt, ami tetszőleges szám beadására
+# kiadja az annak megfelelő hosszúságú Fibonacci-sort, pl.:
 
 #     fib(8)
 #     Output: [1] 0,1,1,2,3,5,8,13
@@ -143,7 +148,8 @@ print(x)
 # Készíthetünk függvényeket különböző statisztikai problémákra
 
 # Példa:
-# A standard hiba kiszámításához szükség van a szórás [sd()], az elemszám [length()] és a gyök [sqrt] függvények kombinálására:
+# A standard hiba kiszámításához szükség van a szórás [sd()],
+# az elemszám [length()] és a gyök [sqrt] függvények kombinálására:
 
 mtcars$mpg
 
@@ -154,7 +160,8 @@ sem <- function(data) {
 sem(mtcars$mpg)
 
 # De kiszámíthatjuk a konfidencia-intervallumot is!
-# A konfidencia intervallum n30 esetén a standard normál eloszlás, míg n
+# A konfidencia intervallum n>30 esetén a standard normál eloszláshoz,
+# míg n<=30-nál a megfelelő szabadságfokú t eloszláshoz tartozó érték.
 # A két eloszláshoz az qnorm() és qt() függvények lesznek segítségül.
 
 # Értelmezzük az elkészített függvényt, mit csinál pontosan:
@@ -173,7 +180,8 @@ CI <- function(dataset) {
 CI(mtcars$mpg)
 
 # 2.1.1 Feladat ------------
-# Készítsünk olyan függvényt, ami megadja a konfidencia-intervallum átlagtól számított alsó és felső határát egy vektorban!
+# Készítsünk olyan függvényt, ami megadja a konfidencia-intervallum
+# átlagtól számított alsó és felső határát egy vektorban!
 
 
 # 2.2 Könyvtárak saját függvényeinek módosítása --------
@@ -216,7 +224,8 @@ pivot_table <- summarize_(group_by_(mtcars,
 pivot_table
 
 # Látszik, hogy a két pivot függvény eltőré parancsokat használ:
-# Az egyiknek a group_by, illetve a summarize, míg a másiknak pedig a group_by_ és a summarize_ parancs szerepel az argumentumati között!
+# Az egyiknek a group_by, illetve a summarize, míg a másiknak pedig a group_by_
+# és a summarize_ parancs szerepel az argumentumati között!
 # A dplyr alapértelmezésben NSE-t, azaz nem standard kiértékelést használ az argumentumoknál.
 # Ez azt jelenti, hogy a megadott argumentumot egy speciális környezetben értelmezi, például:
 
@@ -228,8 +237,11 @@ mtcars$cyl
 
 mtcars[["cyl"]]
 
-# Akkor a summarize függvény vajon honnan tudja, hogy a group_by(mtcars, cyl, gear) esetében a cyl kifejezést az mtcars táblázat egy oszlopára kell érteni??
-# Onnan, hogy van egy speciális (és veszélyes) függvény, ami képes értelmezni az adott változót egy másik környezetben.
+# Akkor a summarize függvény vajon honnan tudja,
+# hogy a group_by(mtcars, cyl, gear) esetében a cyl kifejezést
+# az mtcars táblázat egy oszlopára kell érteni??
+# Onnan, hogy van egy speciális (és veszélyes) függvény, ami képes értelmezni
+# az adott változót egy másik környezetben.
 # Ehhez az kell, hogy képesek legyünk kiértékelés nélkül továbbvinni egy kifejezést.
 
 x <- 10
@@ -248,7 +260,8 @@ deparse(x)
 
 deparse(quote(x))
 
-# Az eval(kifejezés,környezet) függvény pont az ellenkezőjét teszi: mindenképpen kiértékeli a kifejezést az adott környezet szerint.
+# Az eval(kifejezés,környezet) függvény pont az ellenkezőjét teszi:
+# mindenképpen kiértékeli a kifejezést az adott környezet szerint.
 
 eval(x)
 
@@ -256,7 +269,8 @@ eval(x)
 
 eval(x, list(x = 2))
 
-# Mert x már kiértékelésre kerül a függvényen belül. Ezt akadályozhatjuk meg azzal, hogy az eval-t a quote-tal kombináljuk:
+# Mert x már kiértékelésre kerül a függvényen belül. Ezt akadályozhatjuk meg azzal,
+# hogy az eval-t a quote-tal kombináljuk:
 
 eval(quote(x), list(x=2))
 
@@ -264,7 +278,8 @@ eval(quote(x), list(x=2))
 
 x
 
-# A substitute függvény, amit a legtöbb könyvtár (például a dpylr és a ggplot2) használ ennek a két vüggvénynek az ötvözete:
+# A substitute függvény, amit a legtöbb könyvtár (például a dpylr és a ggplot2)
+# használ ennek a két vüggvénynek az ötvözete:
 
 substitute(x, list(x=2))
 x
@@ -272,7 +287,10 @@ x
 
 substitute(cyl, mtcars)
 
-# A summarize() és a gorup_by() függvényekkel ellentétben a summarize_() és a gorup_by_() függvények SE-t, azaz standard kiértékelést használnak, azaz sima argumentumként kezelik a bevitt változókat, ezért stringként (vagy formulaként) kell őket beadni.
+# A summarize() és a gorup_by() függvényekkel ellentétben
+# a summarize_() és a gorup_by_() függvények SE-t, azaz standard kiértékelést használnak,
+# tehát sima argumentumként kezelik a bevitt változókat,
+# ezért stringként (vagy formulaként) kell őket beadni.
 
 # NSE változat:
 
@@ -312,7 +330,8 @@ pivot_table <- summarize_(group_by_(mtcars,
 
 pivot_table
 
-# Még egy kiegészítés: mi a helyzet, ha egy változó nevét, vagy értékét szeretnénk bevinni egy szöveges argumentumba?
+# Még egy kiegészítés: mi a helyzet, ha egy változó nevét,
+# vagy értékét szeretnénk bevinni egy szöveges argumentumba?
 
 # Ez így nem valami jó:
 
@@ -409,7 +428,8 @@ options(repr.plot.width=8, repr.plot.height=3)
 
 dodge <- position_dodge(width = 0.9)
 
-# Alternatív meghívása a ggplot-nak: a plotunkat  egy változóhoz rendeljük és egyenként adjuk hozzá az elemeket:
+# Alternatív meghívása a ggplot-nak: a plotunkat  egy változóhoz rendeljük és
+# egyenként adjuk hozzá az elemeket:
 
 # A plot:
 
@@ -448,7 +468,8 @@ proba_lista
 proba_lista[['z']] = c(5,6)
 proba_lista
 
-# Adjunk az mtcars tábla minden oszlopának nevéhez egy leírást a súgó alapján, amit majd egy listában tárolunk:
+# Adjunk az mtcars tábla minden oszlopának nevéhez egy leírást a súgó alapján,
+# amit majd egy listában tárolunk:
 
 ?mtcars
 
@@ -473,7 +494,8 @@ names(names_list)
 
 names_list[["mpg"]]
 
-# És ezt a listát felhasználhatjuk arra, hogy a diagramon a változók nevei helyett a leírást jelenítsük meg:
+# És ezt a listát felhasználhatjuk arra, hogy a diagramon
+# a változók nevei helyett a leírást jelenítsük meg:
 
 ax1
 
