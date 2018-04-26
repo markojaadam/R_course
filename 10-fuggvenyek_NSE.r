@@ -545,6 +545,8 @@ map_dbl(-10:10, relu)
 # Megjegyzés: a map...() függvénycsalád és a Map() működik névtelen függvényekkel:
 # elég, ha az argumentumon belül definiáljuk a függvényt
 map_dbl(-10:10, function(x) if (x>0) {x} else {0})
+# Egyszerűbben:
+map_dbl(-10:10,function(e) max(e,0))
 
 # 2. megoldás: a függvény újradefiniálása for ciklussal
 
