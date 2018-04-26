@@ -561,6 +561,11 @@ Map(relu, -10:10)
 map(-10:10, relu)
 map_dbl(-10:10, relu)
 
+# Azért nagyon jó a fordított argumentumsorrend, mert így könnyű pipe-pal
+# használni a függvényt:
+-10:10 %>% 
+  map_dbl(relu)
+
 # Megjegyzés: a map...() függvénycsalád és a Map() működik névtelen függvényekkel:
 # elég, ha az argumentumon belül definiáljuk a függvényt
 map_dbl(-10:10, function(x) if (x>0) {x} else {0})
