@@ -568,9 +568,12 @@ map_dbl(-10:10, relu)
 
 # Megjegyzés: a map...() függvénycsalád és a Map() működik névtelen függvényekkel:
 # elég, ha az argumentumon belül definiáljuk a függvényt
-map_dbl(-10:10, function(x) if (x>0) {x} else {0})
+map_dbl(-10:10, function(x) if (x > 0) {x} else {0})
 # Egyszerűbben:
-map_dbl(-10:10,function(e) max(e,0))
+map_dbl(-10:10, function(e) max(e,0))
+
+# Nyakatekert megoldás: map_if() -> feltételesen hajt végre egy függvényt:
+map_if(-10:10, function(x) x < 0, function(x) 0)
 
 # 2. megoldás: a függvény újradefiniálása for ciklussal
 
@@ -587,7 +590,7 @@ relu <- function(x) {
 }
 
 x <- seq(-100,100,0.01)
-plot(x,relu(x),type='l')
+plot(x, relu(x), type='l')
 
 # Ennek nagy előnye, hogy annyira egyszerűen használható,
 # hogy még külön definiálnunk sem kell a függvényt, mégis átlátható lesz:
