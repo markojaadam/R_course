@@ -14,6 +14,13 @@ require("gridExtra")
 # 0, 1, 1, 2, 3, 5, 8, 13, 21, stb.
 # Íjrunk egy olyan parancsot, ami megkeresi az x-nél kisebb összes prímszámot!
 
+fib <- c(0,1)
+for (i in 3:20) {
+  fib[[i]] <- fib[[i-1]] + fib[[i-2]]
+  print(i)
+  print(fib)
+}
+plot(1:20,fib,type='l')
 # 1. Függvények ----
 # Hogyan tudjuk megoldani azt, hogy ugyanazt a parancsot tetszőleges változón,
 # vagy bemeneti értéken hajtsuk végre?
@@ -47,14 +54,19 @@ if (x > 100) {
 #       return(kimeneti_érték)
 #     }
 
+adj_hozza_egyet <- function(x) {
+  x + 1
+}
+
+adj_hozza_egyet(3)
 
 check_100 <- function(szam) {
     if (szam > 100) {
-        szoveg = "Juhu, a szam nagyobb szaznal."
+        szoveg <- "Juhu, a szam nagyobb szaznal."
     } else if (szam == 100) {
-        szoveg = "Hoho, a szam pont 100!"
+        szoveg <- "Hoho, a szam pont 100!"
     } else {
-        szoveg = "Sajnos a szam kisebb 100-nal"
+        szoveg  <-"Sajnos a szam kisebb 100-nal"
     }
     return(szoveg)
 }
@@ -84,7 +96,7 @@ if (szam > 100) {
 
 print(szoveg)
 
-
+szam <- 77
 szoveg <- 'semmi'
 
 check_100 <- function(szam) {
@@ -132,9 +144,36 @@ print(x)
 
 # Hogy lehetne működőképessé tenni?
 
+append_x <- function(number) {
+  x <<- append(x,number)
+}
+
+append_x(3)
+print(x)
+
+adj_nullat <- function(){
+  return(0)
+}
+
+x <- adj_nullat()
+x
+
 # 1.2 Feladatok --------
 
-# Írjunk olyan függvényt, ami az adott számra megmondja nekünk, hpgy az pozitív, negatív, vagy 0!
+# Írjunk olyan függvényt, ami az adott számra megmondja nekünk,
+# hogy az pozitív, negatív, vagy 0!
+
+poznegnulla <- function(number) {
+  if (number > 0) {
+    return("Pozitív")
+  } else if(number == 0){
+    return("nulla")
+  } else {
+    return("negatív")
+  }
+}
+
+poznegnulla(0)
 
 # Írjunk a Fibonacci sorozatra függvényt, ami tetszőleges szám beadására
 # kiadja az annak megfelelő hosszúságú Fibonacci-sort, pl.:
@@ -142,6 +181,23 @@ print(x)
 #     fib(8)
 #     Output: [1] 0,1,1,2,3,5,8,13
 
+fib <- c(0,1)
+for (i in 3:20) {
+  fib[[i]] <- fib[[i-1]] + fib[[i-2]]
+  print(i)
+  print(fib)
+}
+
+fib <- function(fib_hossz) {
+  fib_lista <- c(0,1)
+  for (i in 3:fib_hossz) {
+    fib_lista[[i]] <- fib_lista[[i-1]] + fib_lista[[i-2]]
+    }
+  return(fib_lista)
+}
+
+x <- fib(fib_hossz=8)
+x
 # 2 A tanultak alkalmazása elemzésnél ----
 
 # 2.1 Statisztikai függvények --------
@@ -169,7 +225,7 @@ sem(mtcars$mpg)
 
 CI <- function(dataset) {
     if (length(dataset) > 30) {
-        m = qnorm(0.975)        
+        m = qnorm(0.975)
     }
     else {
         m = qt(0.975,df=(length(dataset)-1))
@@ -199,7 +255,6 @@ pivot_table <- summarize(group_by(mtcars, am, cyl),
                          mean = mean(mpg),
                          error = sd(mpg),
                          n = length(mpg))
-
 pivot_table
 
 # Egy kis kitérő:
@@ -286,7 +341,7 @@ x
 # Egy példa:
 
 substitute(cyl, mtcars)
-
+mtcars$cyl
 # A summarize() és a gorup_by() függvényekkel ellentétben
 # a summarize_() és a gorup_by_() függvények SE-t, azaz standard kiértékelést használnak,
 # tehát sima argumentumként kezelik a bevitt változókat,
@@ -351,7 +406,7 @@ summarize_(mtcars, ~mean(depvar))
 
 # Mit csinálhatott a függvény?
 
-interp("x + y", x = 1)
+interp("x + y +z", x = 1, y = 3)
 
 # Akkor ennek mi lesz az eredménye?
 
@@ -375,6 +430,7 @@ as.name(depvar)
 
 # Ez a stringből objektumot/szimbólumot csinál, amit már beilleszthetünk a kifejezésbe:
 
+depvar <- "cyl"
 interp(~mean(x), x = as.name(depvar))
 
 # És így kapjuk meg azt a kifejezést, amire a sumamrize_-nak szüksége van bemenetként:
@@ -508,7 +564,7 @@ mean_bar_plot <- function(data, depvar, gvar1, gvar2) {
     # Elkeszitjuk a pivot tablat:
     pivot_table = summarize_mod(data=data, depvar=depvar, gvar1, gvar2)
     dodge <- position_dodge(width = 0.9)
-    print(pivot_table)
+    # print(pivot_table)
     return(ggplot(pivot_table, aes(x=as.factor(pivot_table[[gvar1]]),
                             y=agg, # Vigyazat: itt kombinaljuk az NSE-t es az SE-t!
                             fill=as.factor(pivot_table[[gvar2]]))) +
@@ -541,6 +597,13 @@ do.call(grid.arrange,plots)
 # Mi van, ha szeretnénk egy olyan függvényt, ami negatív számokra 0-t ad, pozitív számokra önmagukat
 # Megj.: Ez egy gyakran használt, ún. relu, vagy rectifier aktivációs fv. neurális hálókban
 
+relu <- function(x) {
+  if(x >= 0){
+    return(x)
+  } else {
+    return(0)
+  }
+}
 
 relu(1)
 #     output: [1] 1
@@ -548,6 +611,7 @@ relu(-1)
 #     output: [1] 0
 
 # Mi a helyzet, ha ezt a függvényt vektoron szeretnénk alkalmazni?
+-10:10
 relu(-10:10)
 
 # 1. megoldás: Map() függvény: alkalmaz egy adott függvényt egy vektor összes elemén
@@ -570,7 +634,7 @@ map_dbl(-10:10, relu)
 # elég, ha az argumentumon belül definiáljuk a függvényt
 map_dbl(-10:10, function(x) if (x > 0) {x} else {0})
 # Egyszerűbben:
-map_dbl(-10:10, function(e) max(e,0))
+map_dbl(-10:10, function(x) max(x,0))
 
 # Nyakatekert megoldás: map_if() -> feltételesen hajt végre egy függvényt:
 map_if(-10:10, function(x) x < 0, function(x) 0)
@@ -589,7 +653,10 @@ relu <- function(x) {
   ifelse(x > 0, x, 0)
 }
 
+relu(-20:20)
+
 x <- seq(-100,100,0.01)
+relu(x)
 plot(x, relu(x), type='l')
 
 # Ennek nagy előnye, hogy annyira egyszerűen használható,
